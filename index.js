@@ -1,11 +1,7 @@
 const chalk = require("chalk");
 const clear = require("clear");
 const figlet = require("figlet");
-const path = require("path");
 const program = require("commander");
-const { series } = require("async");
-const { exec } = require("child_process");
-const fs = require("fs");
 
 clear();
 console.log(
