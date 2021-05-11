@@ -5,11 +5,17 @@ const path = require("path");
 const program = require("commander");
 const { series } = require("async");
 const { exec } = require("child_process");
+const fs = require("fs");
+
+const appName = "logan-app";
+
+createFolder(appName);
 
 // Install Logan
 series([
- () => exec('npm install --save @pachecoio/logan'),
-]); 
+  () => exec(`npm init --prefix ${appName} -y`),
+  () => exec(`npm install --prefix ${appName} --save @pachecoio/logan`),
+]);
 
 clear();
 console.log(
@@ -25,3 +31,9 @@ program
   .option("-c, --cheese <type>", "Add the specified type of cheese [marble]")
   .option("-C, --no-cheese", "You do not want any cheese")
   .parse(process.argv);
+
+function createFolder(dir) {
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir);
+  }
+}
