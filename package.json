@@ -18,9 +18,12 @@
     "async": "^3.2.0",
     "chalk": "^4.1.1",
     "clear": "^0.1.0",
+    "cli-spinners": "^2.6.0",
     "commander": "^7.2.0",
     "figlet": "^1.5.0",
+    "listr": "^0.14.3",
     "loading-cli": "^1.1.0",
+    "ora": "^5.4.0",
     "path": "^0.12.7"
   },
   "devDependencies": {
