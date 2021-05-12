@@ -1,14 +1,9 @@
 const fs = require("fs");
 const program = require("commander");
 const { createFolder } = require("./utils");
-const { series } = require("async");
 const util = require("util");
 const exec = util.promisify(require("child_process").exec);
-const ora = require("ora");
-
 const Listr = require("listr");
-
-let spinner;
 
 async function createApp() {
   program.parse(process.argv);

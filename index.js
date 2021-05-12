@@ -1,7 +1,6 @@
 const chalk = require("chalk");
 const clear = require("clear");
 const figlet = require("figlet");
-const loading = require("loading-cli");
 
 async function main() {
   clear();
@@ -10,9 +9,7 @@ async function main() {
   );
 
   try {
-    let load = loading("Starting setup");
     const program = await initProgram();
-    load.stop();
   } catch (error) {
     console.log("Not able to proceed with the command \n", error);
   }
