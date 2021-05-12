@@ -4,6 +4,7 @@ const { createFolder } = require("./utils");
 const util = require("util");
 const exec = util.promisify(require("child_process").exec);
 const Listr = require("listr");
+const npm = util.promisify(require("npm-run").exec);
 
 async function createApp() {
   program.parse(process.argv);
@@ -19,7 +20,7 @@ async function createApp() {
     },
     {
       title: "Initialize git",
-      task: () => initializeGit(),
+      task: () => initializeGit(appName),
     },
     {
       title: "Install dependencies",
@@ -37,7 +38,10 @@ async function copyFiles(appName) {
   const files = fs.readdirSync(templatePath);
   files.forEach((file) => {
     const origFilePath = `${templatePath}/${file}`;
-    const writePath = `${currentPath}/${appName}/${file}`;
+    const writePath = `${currentPath}/${appName}/${file}`.replace(
+      ".example",
+      ""
+    );
     contents = fs
       .readFileSync(origFilePath, "utf8")
       .replace("<APPNAME>", appName);
@@ -46,11 +50,21 @@ async function copyFiles(appName) {
 }
 
 async function installPackages(appName) {
-  await exec(`npm install --prefix ${appName} @pachecoio/logan`);
-  await exec(`npm install --prefix ${appName} --save-dev`);
+  const projectPath = `${process.cwd()}/${appName}`;
+  // await exec(`npm install --prefix ${projectPath} @pachecoio/logan`);
+  // await exec(`npm install --prefix ${projectPath} --save-dev`);
+  await npm(`npm install --prefix ${projectPath} @pachecoio/logan`, {
+    cmd: projectPath,
+  });
+  await npm(`npm install --prefix ${projectPath} --save-dev`, {
+    cmd: projectPath,
+  });
 }
 
-async function initializeGit() {}
+async function initializeGit(appName) {
+  const projectPath = `${process.cwd()}/${appName}`;
+  await exec(`cd ${projectPath} && git init & cd ..`);
+}
 
 async function appInstructions(appName) {
   console.log(`\n\nLogan app created successfully`);
