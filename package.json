@@ -1,5 +1,5 @@
 {
-  "name": "logan-cli",
+  "name": "@pachecoio/logan-cli",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

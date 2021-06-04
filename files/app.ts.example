@@ -1,3 +1,5 @@
-import server from "@pachecoio/logan/lib/src/server";
+import { Server } from "@pachecoio/logan";
+
+const server = new Server();
 
 server.start();
