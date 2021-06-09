@@ -51,8 +51,8 @@ async function copyFiles(appName) {
 
 async function installPackages(appName) {
   const projectPath = path.join(process.cwd(), appName);
-  await exec(`npm install --prefix ${projectPath} @pachecoio/logan`);
-  await exec(`npm install --prefix ${projectPath}`);
+  await exec(`cd ${projectPath} && npm install --save @pachecoio/logan`);
+  await exec(`cd ${projectPath} && npm install`);
 }
 
 async function initializeGit(appName) {
