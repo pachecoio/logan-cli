@@ -51,9 +51,7 @@ async function copyFiles(appName) {
 
 async function installPackages(appName) {
   const projectPath = path.join(process.cwd(), appName);
-  // await exec(`npm install --prefix ${projectPath} @pachecoio/logan`);
-  // await exec(`npm install --prefix ${projectPath} --save-dev`);
-  await npm(`npm install @pachecoio/logan`, {
+  await npm(`npm install logan-api`, {
     cmd: projectPath,
   });
   await npm(`npm install --save-dev`, {

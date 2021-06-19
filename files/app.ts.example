@@ -1,5 +1,13 @@
-import { Server } from "@pachecoio/logan";
+import { Server } from 'logan-api';
+import { Request } from 'express';
 
 const server = new Server();
+
+class Routes {
+  @server.get('/')
+  hello(req: Request) {
+    return 'hello';
+  }
+}
 
 server.start();
