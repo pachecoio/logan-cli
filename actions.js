@@ -40,7 +40,7 @@ async function copyFiles(appName) {
       .replace(".example", "");
     contents = fs
       .readFileSync(origFilePath, "utf8")
-      .replace("<APPNAME>", appName);
+      .replace(/<APPNAME>/g, appName);
     fs.writeFileSync(writePath, contents, "utf8");
   });
 }
