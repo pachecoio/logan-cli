@@ -1,15 +1,11 @@
 const fs = require("fs");
 const path = require("path");
-const program = require("commander");
 const { createFolder } = require("./utils");
 const util = require("util");
 const exec = util.promisify(require("child_process").exec);
 const Listr = require("listr");
-const npm = util.promisify(require("npm-run").exec);
 
-async function createApp() {
-  program.parse(process.argv);
-  const appName = program.args[0];
+async function createApp(appName, args) {
   const tasks = new Listr([
     {
       title: "Create app folder",
@@ -67,4 +63,6 @@ async function appInstructions(appName) {
   console.log(`    npm run dev:start\n\n`);
 }
 
-createApp();
+module.exports = {
+  createApp,
+};
