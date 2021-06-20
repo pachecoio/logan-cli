@@ -1,0 +1,41 @@
+version: "3.7"
+
+services:
+  <APPNAME>_db:
+    image: mongo
+    # restart: always
+    container_name: <APPNAME>_db
+    ports:
+      - 27017:27017
+    volumes:
+      - <APPNAME>_db:/data/db
+    networks:
+      - <APPNAME>_network
+
+  <APPNAME>_app:
+    image: <APPNAME>_app:dev
+    build:
+      context: .
+      target: dev
+    container_name: <APPNAME>_app
+    # restart: always
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - <APPNAME>_db
+    environment:
+      - MONGODB_URI=mongodb://<APPNAME>_db/<APPNAME>_db
+      - NODE_ENV=development
+      - PORT=5000
+    networks:
+      - <APPNAME>_network
+
+volumes:
+  <APPNAME>_db:
+    name: <APPNAME>_db
+
+networks:
+  <APPNAME>_network:
+    name: <APPNAME>_network
